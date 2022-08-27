@@ -2,6 +2,7 @@ import ancientsData from "../data/ancients";
 import difficulties from "../data/difficulties";
 import { brownCards, blueCards, greenCards } from "../data/mythicCards/index";
 import "../css/style.css";
+const cards = ["greenCards", "blueCards", "brownCards"];
 
 // карты древних вытягиваем картинки
 ancientsData.forEach((x) => {
@@ -46,7 +47,7 @@ function shuffleCards() {
   const greenCardsSelected = collectCards(
     greenCards,
     difficulty,
-    getMaxSetCard(ancient, "greenCards")
+    getMaxSetCard(ancient, cards[0])
   );
   const greenCardsShuffled = shuffleDesk(
     greenCardsSelected,
@@ -55,24 +56,91 @@ function shuffleCards() {
   const blueCardsSelected = collectCards(
     blueCards,
     difficulty,
-    getMaxSetCard(ancient, "blueCards")
+    getMaxSetCard(ancient, cards[1])
   );
-  const blueCardsShuffled = shuffleCards(
+  const blueCardsShuffled = shuffleDesk(
     blueCardsSelected,
     blueCardsSelected.length
   );
   const brownCardsSelected = collectCards(
     brownCards,
     difficulty,
-    getMaxSetCard(ancient, "brownCards")
+    getMaxSetCard(ancient, cards[2])
   );
-  const brownCardsShuffled = shuffleCards(
+  const brownCardsShuffled = shuffleDesk(
     brownCardsSelected,
     brownCardsSelected.length
   );
-  console.log(setCardsAncient);
-}
+  const deskFirstStage = [];
+  const deskSecondStage = [];
+  const deskThirdStage = [];
 
+  getCardStage(
+    deskFirstStage,
+    greenCardsShuffled,
+    getSetCards(ancient, cards[0])[0]
+  );
+  getCardStage(
+    deskSecondStage,
+    greenCardsShuffled,
+    getSetCards(ancient, cards[0])[1]
+  );
+  getCardStage(
+    deskThirdStage,
+    greenCardsShuffled,
+    getSetCards(ancient, cards[0])[2]
+  );
+  getCardStage(
+    deskFirstStage,
+    blueCardsShuffled,
+    getSetCards(ancient, cards[1])[0]
+  );
+  getCardStage(
+    deskSecondStage,
+    blueCardsShuffled,
+    getSetCards(ancient, cards[1])[1]
+  );
+  getCardStage(
+    deskThirdStage,
+    blueCardsShuffled,
+    getSetCards(ancient, cards[1])[2]
+  );
+  getCardStage(
+    deskFirstStage,
+    brownCardsShuffled,
+    getSetCards(ancient, cards[2])[0]
+  );
+  getCardStage(
+    deskSecondStage,
+    brownCardsShuffled,
+    getSetCards(ancient, cards[2])[1]
+  );
+  getCardStage(
+    deskThirdStage,
+    brownCardsShuffled,
+    getSetCards(ancient, cards[2])[2]
+  );
+  const playDesk = [];
+  shuffleDesk(deskThirdStage, deskThirdStage.length).forEach((x) =>
+    playDesk.push(x)
+  );
+  shuffleDesk(deskSecondStage, deskSecondStage.length).forEach((x) =>
+    playDesk.push(x)
+  );
+  shuffleDesk(deskFirstStage, deskFirstStage.length).forEach((x) =>
+    playDesk.push(x)
+  );
+  console.log(playDesk);
+}
+//набор случайных карт из миниколоды в игровой набор
+function getCardStage(deskStage, cardsShuffled, count) {
+  for (let i = 0; i < count; i++) {
+    let randomCard = random(0, cardsShuffled.length);
+    deskStage.push(cardsShuffled[randomCard]);
+    cardsShuffled.splice(randomCard, 1);
+  }
+}
+// набор коллекции карт в зависимости от сложности
 function collectCards(desk, difficulty, maxSetCards) {
   if (difficulty === "very-easy") {
     return selectVeryDesk(desk, difficulties[0].id, maxSetCards);
