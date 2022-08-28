@@ -2,6 +2,7 @@ import ancientsData from "../data/ancients";
 import difficulties from "../data/difficulties";
 import { brownCards, blueCards, greenCards } from "../data/mythicCards/index";
 import "../css/style.css";
+import levels from "./level";
 const cards = ["greenCards", "blueCards", "brownCards"];
 
 // карты древних вытягиваем картинки
@@ -130,8 +131,22 @@ function shuffleCards() {
   shuffleDesk(deskFirstStage, deskFirstStage.length).forEach((x) =>
     playDesk.push(x)
   );
-  console.log(playDesk);
+  // console.log(playDesk);
+
+  startPlay();
 }
+function startPlay() {
+  const mythicCardsBackground = document.querySelector(
+    "#mysticCardsBackground"
+  );
+  const mythicCardsPlay = document.querySelector("#mysticCardsPlay");
+  console.log(mythicCardsBackground);
+
+  mythicCardsBackground.src = "..assets/mythicCardBackground.png";
+
+  mythicCardsPlay.src = "";
+}
+
 //набор случайных карт из миниколоды в игровой набор
 function getCardStage(deskStage, cardsShuffled, count) {
   for (let i = 0; i < count; i++) {

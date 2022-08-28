@@ -1,0 +1,28 @@
+.row-difficulties {
+  display: flex;
+  justify-content: space-around;
+  padding-left: 200px;
+  padding-right: 200px;
+  padding-top: 20px;
+}
+.difficulty-btn {
+  cursor: pointer;
+  display: flex;
+  border: 1px solid white;
+  width: 150px;
+  height: 30px;
+  line-height: 30px;
+  color: azure;
+  text-align: center;
+}
+.difficulty-btn label,
+.difficulty-btn input {
+  cursor: pointer;
+  display: block;
+  width: 100%;
+}
+.difficulty-btn input[type="radio"]:checked + label {
+  background: #7a0505;
+  transform: scale(1.1);
+  box-shadow: 0 0 10px rgb(255, 0, 0);
+}

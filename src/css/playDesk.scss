@@ -1,0 +1,21 @@
+.desk-play {
+  display: flex;
+  justify-content: center;
+  gap: 100px;
+}
+.cards-field {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+.mythicCards {
+  width: 100px;
+  height: 150px;
+  border: 2px solid red;
+}
+.mythicCards-background {
+  cursor: pointer;
+}
+.stage-header {
+  color: darkgray;
+}
