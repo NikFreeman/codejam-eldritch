@@ -17,7 +17,7 @@ const levels = [
   },
   {
     id: "very-hard",
-    name: "очень-высокий",
+    name: "очень высокий",
   },
 ];
 

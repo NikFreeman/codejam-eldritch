@@ -3,8 +3,20 @@ import difficulties from "../data/difficulties";
 import { brownCards, blueCards, greenCards } from "../data/mythicCards/index";
 import "../css/style.css";
 import levels from "./level";
-const cards = ["greenCards", "blueCards", "brownCards"];
 
+import cardBackground from "../assets/cardBackground";
+const playDesk = [];
+let tracker = [];
+let trackerStage = [];
+const cards = ["greenCards", "blueCards", "brownCards"];
+const stages = ["firstStage", "secondStage", "thirdStage"];
+const mythicCardsBackground = document.querySelector(".img-background");
+const mythicCardsPlay = document.querySelector(".img-front");
+
+mythicCardsBackground.src = cardBackground;
+mythicCardsPlay.src = cardBackground;
+hideCard(mythicCardsBackground);
+hideCard(mythicCardsPlay);
 // карты древних вытягиваем картинки
 ancientsData.forEach((x) => {
   const card = document.getElementById(x.id);
@@ -14,6 +26,14 @@ ancientsData.forEach((x) => {
 const shuffleBtn = document.getElementById("shuffle-btn");
 shuffleBtn.addEventListener("click", shuffleCards);
 
+function hideCard(elem) {
+  elem.classList.add("hide");
+}
+function unHideCard(elem) {
+  if (elem.classList.contains("hide")) {
+    elem.classList.remove("hide");
+  }
+}
 // проверяем радиокнопки
 function getCheckedRadioButton(selector) {
   const radioButtons = document.querySelectorAll(selector);
@@ -25,26 +45,27 @@ function getCheckedRadioButton(selector) {
 }
 // максимальное количество карт в раскладке древнего
 function getMaxSetCard(ancient, card) {
-  const ancientCards = ancientsData.filter((x) => x.id === ancient);
+  const ancientCards = ancientsData.find((x) => x.id === ancient);
   return (
-    ancientCards[0].firstStage[card] +
-    ancientCards[0].secondStage[card] +
-    ancientCards[0].thirdStage[card]
+    ancientCards.firstStage[card] +
+    ancientCards.secondStage[card] +
+    ancientCards.thirdStage[card]
   );
 }
 // вытягиваем набор карт для древнего
 function getSetCards(ancient, card) {
-  const ancientCards = ancientsData.filter((x) => x.id === ancient);
+  const ancientCards = ancientsData.find((x) => x.id === ancient);
   return [
-    ancientCards[0].firstStage[card],
-    ancientCards[0].secondStage[card],
-    ancientCards[0].thirdStage[card],
+    ancientCards.firstStage[card],
+    ancientCards.secondStage[card],
+    ancientCards.thirdStage[card],
   ];
 }
 
 function shuffleCards() {
   const ancient = getCheckedRadioButton('input[name="ancients-radio"]');
   const difficulty = getCheckedRadioButton('input[name="difficulty-radio"]');
+  playDesk.length = 0;
   const greenCardsSelected = collectCards(
     greenCards,
     difficulty,
@@ -121,7 +142,7 @@ function shuffleCards() {
     brownCardsShuffled,
     getSetCards(ancient, cards[2])[2]
   );
-  const playDesk = [];
+
   shuffleDesk(deskThirdStage, deskThirdStage.length).forEach((x) =>
     playDesk.push(x)
   );
@@ -131,22 +152,69 @@ function shuffleCards() {
   shuffleDesk(deskFirstStage, deskFirstStage.length).forEach((x) =>
     playDesk.push(x)
   );
-  // console.log(playDesk);
+  const levelString = levels.find((x) => x.id === difficulty).name;
+  document.querySelector(
+    ".shuffle-settings"
+  ).textContent = `Колода мифов: древний: ${ancient}    уровень сложности: ${levelString}`;
+  unHideCard(mythicCardsBackground);
+  hideCard(mythicCardsPlay);
+  for (let stage of stages) {
+    if (document.querySelector("." + stage).classList.contains("completed")) {
+      document.querySelector("." + stage).classList.remove("completed");
+    }
+  }
 
-  startPlay();
+  mythicCardsBackground.addEventListener("click", nextCard);
+  trackerStage.length = 0;
+  trackerStage = [
+    deskFirstStage.length,
+    deskSecondStage.length,
+    deskThirdStage.length,
+  ];
+  getTrackerCard(ancient);
+
+  drawTracker();
 }
-function startPlay() {
-  const mythicCardsBackground = document.querySelector(
-    "#mysticCardsBackground"
-  );
-  const mythicCardsPlay = document.querySelector("#mysticCardsPlay");
-  console.log(mythicCardsBackground);
-
-  mythicCardsBackground.src = "..assets/mythicCardBackground.png";
-
-  mythicCardsPlay.src = "";
+function drawTracker() {
+  for (let i = 0; i < 3; i++) {
+    let stage = i === 0 ? "firstStage" : i === 1 ? "secondStage" : "thirdStage";
+    document.querySelector(`#${stage}-green`).textContent =
+      tracker[i].greenCards;
+    document.querySelector(`#${stage}-blue`).textContent = tracker[i].blueCards;
+    document.querySelector(`#${stage}-brown`).textContent =
+      tracker[i].brownCards;
+  }
+}
+function getTrackerCard(ancient) {
+  const ancientCards = ancientsData.find((x) => x.id === ancient);
+  tracker.length = 0;
+  tracker.push(Object.assign({}, ancientCards.firstStage));
+  tracker.push(Object.assign({}, ancientCards.secondStage));
+  tracker.push(Object.assign({}, ancientCards.thirdStage));
 }
 
+function nextCard() {
+  unHideCard(mythicCardsPlay);
+  let card = playDesk.pop();
+  let stage = trackerStage[0] > 0 ? 0 : trackerStage[1] > 0 ? 1 : 2;
+
+  trackerStage[stage]--;
+  if (trackerStage[stage] === 0) {
+    let stageString =
+      stage === 0
+        ? ".firstStage"
+        : stage === 1
+        ? ".secondStage"
+        : ".thirdStage";
+    document.querySelector(stageString).classList.add("completed");
+  }
+  let cardColor = card["color"] + "Cards";
+
+  tracker[stage][cardColor]--;
+  drawTracker();
+  mythicCardsPlay.src = card.cardFace;
+  if (playDesk.length === 0) hideCard(mythicCardsBackground);
+}
 //набор случайных карт из миниколоды в игровой набор
 function getCardStage(deskStage, cardsShuffled, count) {
   for (let i = 0; i < count; i++) {
@@ -173,6 +241,7 @@ function collectCards(desk, difficulty, maxSetCards) {
     return selectVeryDesk(desk, difficulties[2].id, maxSetCards);
   }
 }
+// выбираем карты из колод согласно сложности (very-easy and very-hard)
 function selectVeryDesk(desk, difficulty, maxSetCards) {
   const deskSelected = desk.filter((x) => x.difficulty === difficulty);
   if (deskSelected.length < maxSetCards) {
@@ -183,11 +252,12 @@ function selectVeryDesk(desk, difficulty, maxSetCards) {
   }
   return deskSelected;
 }
+// выбираем карты из колод согласно сложности (easy and hard)
 function selectDesk(desk, difficulty) {
   const deskSelected = desk.filter((x) => x.difficulty !== difficulty);
   return deskSelected;
 }
-// замешиваем колоду ()
+// тусуем колоду ()
 function shuffleDesk(desk, countCards) {
   let copyDesk = desk.slice();
   let resultDesk = [];
@@ -201,6 +271,3 @@ function shuffleDesk(desk, countCards) {
 function random(min, max) {
   return Math.floor(Math.random() * (max - min) + min);
 }
-// console.log(ancientsData);
-// console.log(difficulties);
-// console.log(brownCards, blueCards, greenCards);

@@ -8,14 +8,42 @@
   justify-content: center;
   gap: 20px;
 }
-.mythicCards {
+.mythic-cards {
   width: 100px;
   height: 150px;
   border: 2px solid red;
 }
-.mythicCards-background {
+.mythic-cardsBackground {
+  cursor: pointer;
+}
+.img-background {
+  height: 100%;
+  width: 100%;
   cursor: pointer;
 }
 .stage-header {
   color: darkgray;
+}
+.img-front {
+  height: 100%;
+  width: 100%;
+}
+.green {
+  background-color: green;
+  color: white;
+}
+.blue {
+  background-color: blue;
+  color: white;
+}
+.brown {
+  background-color: brown;
+  color: white;
+}
+td {
+  text-align: center;
+  border-radius: 3px;
+}
+.completed {
+  color: red;
 }
