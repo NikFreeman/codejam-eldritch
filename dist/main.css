@@ -1,6 +1,3 @@
-/*!*********************************************************************!*\
-  !*** css ./node_modules/css-loader/dist/cjs.js!./src/css/base.scss ***!
-  \*********************************************************************/
 html,
 body {
   height: 100%;
@@ -19,13 +16,11 @@ body {
   display: none;
 }
 
-/*!*************************************************************************!*\
-  !*** css ./node_modules/css-loader/dist/cjs.js!./src/css/ancients.scss ***!
-  \*************************************************************************/
 .row-cards {
   padding: 20px 40px;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
+  gap: 20px;
 }
 .card {
   height: 200px;
@@ -46,12 +41,10 @@ input[type="radio"][id^="btn-"] {
   cursor: pointer;
 }
 
-/*!*****************************************************************************!*\
-  !*** css ./node_modules/css-loader/dist/cjs.js!./src/css/difficulties.scss ***!
-  \*****************************************************************************/
 .row-difficulties {
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
+  gap: 20px;
   padding-left: 200px;
   padding-right: 200px;
   padding-top: 20px;
@@ -78,9 +71,6 @@ input[type="radio"][id^="btn-"] {
   box-shadow: 0 0 10px rgb(255, 0, 0);
 }
 
-/*!************************************************************************!*\
-  !*** css ./node_modules/css-loader/dist/cjs.js!./src/css/shuffle.scss ***!
-  \************************************************************************/
 .btn-shuffle {
   height: 30px;
 }
@@ -98,9 +88,6 @@ input[type="radio"][id^="btn-"] {
   font-weight: 700;
 }
 
-/*!*************************************************************************!*\
-  !*** css ./node_modules/css-loader/dist/cjs.js!./src/css/playDesk.scss ***!
-  \*************************************************************************/
 .desk-play {
   display: flex;
   justify-content: center;
@@ -151,7 +138,4 @@ td {
   color: red;
 }
 
-/*!*********************************************************************!*\
-  !*** css ./node_modules/css-loader/dist/cjs.js!./src/css/style.css ***!
-  \*********************************************************************/
 
