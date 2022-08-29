@@ -1,0 +1,24 @@
+.row-cards {
+  padding: 20px 40px;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+.card {
+  height: 200px;
+  width: 150px;
+  cursor: pointer;
+}
+input[type="radio"][id^="btn-"] {
+  display: none;
+}
+
+:checked + label img {
+  transform: scale(1.1);
+  box-shadow: 0 0 15px rgb(153, 0, 0);
+}
+.card-id {
+  height: 100%;
+  width: 100%;
+  cursor: pointer;
+}
