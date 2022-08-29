@@ -1,0 +1,157 @@
+/*!*********************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js!./src/css/base.scss ***!
+  \*********************************************************************/
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+.container {
+  height: 100%;
+  background-image: url(images/home.png);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  margin: 0;
+}
+.hide {
+  display: none;
+}
+
+/*!*************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js!./src/css/ancients.scss ***!
+  \*************************************************************************/
+.row-cards {
+  padding: 20px 40px;
+  display: flex;
+  justify-content: space-between;
+}
+.card {
+  height: 200px;
+  width: 150px;
+  cursor: pointer;
+}
+input[type="radio"][id^="btn-"] {
+  display: none;
+}
+
+:checked + label img {
+  transform: scale(1.1);
+  box-shadow: 0 0 15px rgb(153, 0, 0);
+}
+.card-id {
+  height: 100%;
+  width: 100%;
+  cursor: pointer;
+}
+
+/*!*****************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js!./src/css/difficulties.scss ***!
+  \*****************************************************************************/
+.row-difficulties {
+  display: flex;
+  justify-content: space-around;
+  padding-left: 200px;
+  padding-right: 200px;
+  padding-top: 20px;
+}
+.difficulty-btn {
+  cursor: pointer;
+  display: flex;
+  border: 1px solid white;
+  width: 150px;
+  height: 30px;
+  line-height: 30px;
+  color: azure;
+  text-align: center;
+}
+.difficulty-btn label,
+.difficulty-btn input {
+  cursor: pointer;
+  display: block;
+  width: 100%;
+}
+.difficulty-btn input[type="radio"]:checked + label {
+  background: #7a0505;
+  transform: scale(1.1);
+  box-shadow: 0 0 10px rgb(255, 0, 0);
+}
+
+/*!************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js!./src/css/shuffle.scss ***!
+  \************************************************************************/
+.btn-shuffle {
+  height: 30px;
+}
+.shuffle-row {
+  display: flex;
+  justify-content: left;
+
+  gap: 100px;
+  padding-top: 20px;
+  padding-left: 230px;
+  padding-bottom: 20px;
+}
+.shuffle-settings {
+  color: rgb(255, 71, 255);
+  font-weight: 700;
+}
+
+/*!*************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js!./src/css/playDesk.scss ***!
+  \*************************************************************************/
+.desk-play {
+  display: flex;
+  justify-content: center;
+  gap: 100px;
+}
+.cards-field {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+.mythic-cards {
+  width: 100px;
+  height: 150px;
+  border: 2px solid red;
+}
+.mythic-cardsBackground {
+  cursor: pointer;
+}
+.img-background {
+  height: 100%;
+  width: 100%;
+  cursor: pointer;
+}
+.stage-header {
+  color: darkgray;
+}
+.img-front {
+  height: 100%;
+  width: 100%;
+}
+.green {
+  background-color: green;
+  color: white;
+}
+.blue {
+  background-color: blue;
+  color: white;
+}
+.brown {
+  background-color: brown;
+  color: white;
+}
+td {
+  text-align: center;
+  border-radius: 3px;
+}
+.completed {
+  color: red;
+}
+
+/*!*********************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js!./src/css/style.css ***!
+  \*********************************************************************/
+
